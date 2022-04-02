@@ -2,7 +2,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 const allowed = {
   send: ['app:close', 'window:maximize', 'window:minimize'],
-  on: [],
+  on: ['app:toggle-maximize'],
   once: [],
 }
 

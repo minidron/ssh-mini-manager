@@ -28,6 +28,12 @@ function createWindow () {
   // if (isDev) win.webContents.openDevTools()
 
 
+  ;['maximize','unmaximize'].forEach((event) => {
+    win.on(event, () => {
+      win.webContents.send('app:toggle-maximize', win.isMaximized())
+    })
+  })
+
   ipcMain.on('window:maximize', () => {
     if (win.isMaximized()) {
       win.unmaximize()
@@ -43,7 +49,10 @@ function createWindow () {
 
 app.whenReady().then(() => {
   if (isDev) {
-    const { default: installExtension, VUEJS_DEVTOOLS } = require("electron-devtools-installer")
+    const {
+      default: installExtension,
+      VUEJS_DEVTOOLS
+    } = require('electron-devtools-installer')
 
     installExtension(VUEJS_DEVTOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
