@@ -1,0 +1,47 @@
+/* BASE
+============================================================================ */
+$base-font-size:   14px;
+$base-line-height: 1;
+/* ------------------------------------------------------------------------- */
+
+
+/* FONT
+============================================================================ */
+$fw-thin:        100;
+$fw-extra-light: 200;
+$fw-light:       300;
+$fw-regular:     400;
+$fw-medium:      500;
+$fw-semi-bold:   600;
+$fw-bold:        700;
+$fw-extra-bold:  800;
+$fw-black:       900;
+
+$ff-noto-sans:   'Noto Sans';
+$ff-default:     $ff-noto-sans;
+/* ------------------------------------------------------------------------- */
+
+
+/* COLORS
+============================================================================ */
+$white:      #FFF;
+$black:      #000;
+$accent-red: #D32F2F;
+
+$ui-color: #121212;
+
+$c-dp00: scale-color($ui-color, $whiteness: 0%);
+$c-dp01: scale-color($ui-color, $whiteness: 5%);
+$c-dp02: scale-color($ui-color, $whiteness: 7%);
+$c-dp03: scale-color($ui-color, $whiteness: 8%);
+$c-dp04: scale-color($ui-color, $whiteness: 9%);
+$c-dp06: scale-color($ui-color, $whiteness: 11%);
+$c-dp08: scale-color($ui-color, $whiteness: 12%);
+$c-dp12: scale-color($ui-color, $whiteness: 14%);
+$c-dp16: scale-color($ui-color, $whiteness: 15%);
+$c-dp24: scale-color($ui-color, $whiteness: 16%);
+
+$c-text-high-emphasis:   rgba($white, .87);
+$c-text-medium-emphasis: rgba($white, .6);
+$c-text-disabled:        rgba($white, .38);
+/* ------------------------------------------------------------------------- */

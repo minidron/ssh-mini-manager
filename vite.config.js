@@ -1,11 +1,16 @@
-import { fileURLToPath, URL } from "url"
-
 import { defineConfig } from 'vite'
+import path from 'path'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.ELECTRON == 'true' ? './' : '/',
+  root: path.resolve(__dirname, 'app/src/'),
+
+  base: './',
+
+  build: {
+    emptyOutDir: true,
+    outDir: path.resolve(__dirname, 'dist/vue/'),
+  },
 
   plugins: [vue()],
 
@@ -13,15 +18,9 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "@/assets/scss/variables.scss";
+          @import "/assets/scss/variables.scss";
         `
       }
-    }
-  },
-
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
     }
   }
 })
