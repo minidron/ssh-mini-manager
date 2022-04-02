@@ -1,7 +1,5 @@
 <template>
-    <Window>
-      content
-    </Window>
+    <Window />
 </template>
 
 <script setup>

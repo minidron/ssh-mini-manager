@@ -1,3 +1,4 @@
+const { app, ipcMain } = require('electron')
 const isDev = process.env.ELECTRON_ENV == "dev" ? true : false
 
 function createWindow () {
@@ -9,6 +10,7 @@ function createWindow () {
     frame: false,
     width: 1200,
     height: 600,
+    backgroundColor: '#1D1D1D',
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
@@ -24,9 +26,20 @@ function createWindow () {
   )
 
   // if (isDev) win.webContents.openDevTools()
-}
 
-const { app, ipcMain } = require('electron')
+
+  ipcMain.on('window:maximize', () => {
+    if (win.isMaximized()) {
+      win.unmaximize()
+    } else {
+      win.maximize()
+    }
+  })
+
+  ipcMain.on('window:minimize', () => {
+    win.minimize()
+  })
+}
 
 app.whenReady().then(() => {
   if (isDev) {

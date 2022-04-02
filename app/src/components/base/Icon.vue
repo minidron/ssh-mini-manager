@@ -6,7 +6,7 @@
 export default {
   props: {
     icon: String,
-    size: Number,
+    size: [Number, String],
   },
 
   computed: {
