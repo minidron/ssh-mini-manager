@@ -10,8 +10,20 @@
     "files": [
       "!node_modules/**/*",
       "package.json",
-      { "from": "dist/vue", "to": "app/vue", "filter": ["**/*"] },
-      { "from": "app/electron", "to": "app/electron", "filter": ["**/*"] }
+      {
+        "from": "dist/vue",
+        "to": "app/vue",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "app/electron",
+        "to": "app/electron",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "directories": {
       "buildResources": "assets",
@@ -26,7 +38,7 @@
     "electron:build": "cross-env ELECTRON=true vite build && electron-builder"
   },
   "dependencies": {
-    "pinia": "^2.0.13",
+    "electron-store": "^8.0.1",
     "vue": "^3.2.25"
   },
   "devDependencies": {

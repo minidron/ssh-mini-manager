@@ -1,17 +1,17 @@
 const { app, ipcMain } = require('electron')
-const isDev = process.env.ELECTRON_ENV == "dev" ? true : false
+const isDev = process.env.ELECTRON_ENV == 'dev' ? true : false
 
 function createWindow () {
   const { BrowserWindow } = require('electron')
   const path = require('path')
+  const settings = require('./store/settings')
 
   const win = new BrowserWindow({
     title: 'SSH mini Manager',
     frame: false,
-    width: 1200,
-    height: 600,
     backgroundColor: '#1D1D1D',
     useContentSize: true,
+    ...(({ width, height }) => ({ width, height }))(settings.get('window')),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -27,24 +27,21 @@ function createWindow () {
 
   // if (isDev) win.webContents.openDevTools()
 
+  const initListeners = require('./events/listeners')
+  const initSenders = require('./events/senders')
 
-  ;['maximize','unmaximize'].forEach((event) => {
-    win.on(event, () => {
-      win.webContents.send('app:toggle-maximize', win.isMaximized())
-    })
-  })
-
-  ipcMain.on('window:maximize', () => {
-    if (win.isMaximized()) {
-      win.unmaximize()
-    } else {
-      win.maximize()
+  app.on('before-quit', (event) => {
+    if (!win.canClose) {
+      event.preventDefault()
+      const size = (({ width, height }) => ({ width, height }))(win.getNormalBounds())
+      settings.set('window', size)
+      win.canClose = true
+      app.quit()
     }
   })
 
-  ipcMain.on('window:minimize', () => {
-    win.minimize()
-  })
+  initListeners(win)
+  initSenders(win)
 }
 
 app.whenReady().then(() => {
@@ -70,8 +67,4 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
-
-ipcMain.on('app:close', () => {
-  app.quit()
 })
