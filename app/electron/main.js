@@ -1,4 +1,4 @@
-const { app, ipcMain } = require('electron')
+const { app } = require('electron')
 const isDev = process.env.ELECTRON_ENV == 'dev' ? true : false
 
 function createWindow () {
@@ -6,12 +6,14 @@ function createWindow () {
   const path = require('path')
   const settings = require('./store/settings')
 
+  const { width, height } = settings.get('window')
+
   const win = new BrowserWindow({
     title: 'SSH mini Manager',
+    width, height,
     frame: false,
     backgroundColor: '#1D1D1D',
     useContentSize: true,
-    ...(({ width, height }) => ({ width, height }))(settings.get('window')),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -27,21 +29,7 @@ function createWindow () {
 
   // if (isDev) win.webContents.openDevTools()
 
-  const initListeners = require('./events/listeners')
-  const initSenders = require('./events/senders')
-
-  app.on('before-quit', (event) => {
-    if (!win.canClose) {
-      event.preventDefault()
-      const size = (({ width, height }) => ({ width, height }))(win.getNormalBounds())
-      settings.set('window', size)
-      win.canClose = true
-      app.quit()
-    }
-  })
-
-  initListeners(win)
-  initSenders(win)
+  return win
 }
 
 app.whenReady().then(() => {
@@ -56,15 +44,13 @@ app.whenReady().then(() => {
       .catch((err) => console.log('An error occurred: ', err))
   }
 
-  createWindow()
-})
+  const win = createWindow()
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow()
-})
+  const initAppEvents = require('./events/app')
+  const initListeners = require('./ipc/listeners')
+  const initSenders = require('./ipc/senders')
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  initAppEvents(win)
+  initListeners(win)
+  initSenders(win)
 })
