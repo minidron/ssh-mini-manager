@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { useApp } from '/composables/useApp'
+import { useApp } from '/composables/app'
 import Button from './Button.vue'
 import Icon from '/components/base/Icon.vue'
 

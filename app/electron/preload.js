@@ -1,15 +1,26 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 const allowed = {
-  send: ['app:close', 'window:maximize', 'window:minimize'],
+  invoke: [
+    'dialog:open',
+    'settings:fetch',
+  ],
+
   on: ['app:toggle-maximize'],
+
   once: [],
+
+  send: [
+    'app:close',
+    'window:maximize',
+    'window:minimize',
+  ],
 }
 
 contextBridge.exposeInMainWorld('electron', {
-  send: (channel, data) => {
-    if (allowed.send.includes(channel)) {
-      ipcRenderer.send(channel, data)
+  invoke: async (channel, ...args) => {
+    if (allowed.invoke.includes(channel)) {
+      return await ipcRenderer.invoke(channel, ...args)
     }
   },
 
@@ -23,5 +34,11 @@ contextBridge.exposeInMainWorld('electron', {
     if (allowed.once.includes(channel)) {
       ipcRenderer.once(channel, (event, ...args) => func(...args))
     }
-  }
+  },
+
+  send: (channel, data) => {
+    if (allowed.send.includes(channel)) {
+      ipcRenderer.send(channel, data)
+    }
+  },
 })

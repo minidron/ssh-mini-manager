@@ -1,3 +1,5 @@
+const { app } = require('electron')
+const path = require('path')
 const Store = require('electron-store')
 
 const schema = {
@@ -14,6 +16,11 @@ const schema = {
       }
     },
     default: {}
+  },
+
+  sshConfigPath: {
+    type: 'string',
+    default: path.resolve(app.getPath('home'), '.ssh', 'config')
   }
 }
 

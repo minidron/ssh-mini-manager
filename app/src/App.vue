@@ -3,7 +3,11 @@
 </template>
 
 <script setup>
+import { useSettings } from '/composables/settings'
 import Window from '/components/window/Window.vue'
+
+const { fetch } = useSettings()
+fetch()
 </script>
 
 <style lang="scss">

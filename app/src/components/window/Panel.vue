@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <div class="menu"></div>
+    <Menu />
     <div class="search"></div>
     <Control />
   </div>
@@ -8,6 +8,7 @@
 
 <script setup>
 import Control from './Control.vue'
+import Menu from './Menu.vue'
 </script>
 
 <style lang="scss" scoped>
