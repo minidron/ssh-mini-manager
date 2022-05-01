@@ -2382,6 +2382,11 @@ sprintf-js@^1.1.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
   integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
 
+ssh-config@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-4.1.4.tgz#75bd1e6f797a2005d32eead64366b16dbbd820ac"
+  integrity sha512-nU0t59ZZFaZ7qGGPE25MB1NDiFFYp8hG+WmsLv9oulop/5TAMLZHe7WQrLwbTZ44Lj7mKm/P2Nge5uXd/90sWg==
+
 stat-mode@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stat-mode/-/stat-mode-1.0.0.tgz#68b55cb61ea639ff57136f36b216a291800d1465"

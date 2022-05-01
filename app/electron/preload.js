@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 const allowed = {
   invoke: [
     'dialog:open',
+    'file:fetch',
     'settings:fetch',
   ],
 

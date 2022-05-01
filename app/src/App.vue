@@ -1,13 +1,15 @@
 <template>
-    <Window />
+    <Window><HostList /></Window>
 </template>
 
 <script setup>
 import { useSettings } from '/composables/settings'
 import Window from '/components/window/Window.vue'
+import HostList from '/components/hosts/HostList.vue'
 
-const { fetch } = useSettings()
-fetch()
+const { load: loadSettings } = useSettings()
+
+loadSettings()
 </script>
 
 <style lang="scss">
